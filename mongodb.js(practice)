@@ -1,0 +1,134 @@
+// const mongodb = require('mongodb');
+// const MongoClient = mongodb.MongoClient;
+// const ObjectID = mongodb.ObjectID;
+
+const { MongoClient, ObjectID } = require('mongodb');
+
+const connectionUrl = 'mongodb://127.0.0.1:27017';
+const dbName = 'task-manager';
+
+// const id = new ObjectID();
+// console.log(id);
+// console.log(id.id.length);
+// console.log(id.toHexString().length);
+// console.log(id.getTimestamp());
+
+MongoClient.connect(connectionUrl, { useNewUrlParser: true }, (err, client) => {
+  if (err) return console.log(err);
+
+  const db = client.db(dbName);
+
+  // db.collection('users').insertOne({
+  //   name: 'Rocky',
+  //   age: 27,
+  // }, (err, res) => {
+  //   if (err) return console.log(err);
+
+  //   console.log(res.ops);
+  // });
+
+  // db.collection('users').insertMany([
+  //   {
+  //     name: 'Anna',
+  //     age: 24
+  //   },
+  //   {
+  //     name: 'Steven',
+  //     age: 25
+  //   }
+  // ], (err, res) => {
+  //   if (err) return console.log(err);
+
+  //   console.log(res.ops);
+  // });
+
+  // db.collection('tasks').insertMany([
+  //   {
+  //     description: 'read a book',
+  //     completed: true,
+  //   },
+  //   {
+  //     description: 'walk for 20 mins',
+  //     completed: false,
+  //   },
+  //   {
+  //     description: 'eat breakfast',
+  //     completed: true,
+  //   }
+  // ], (err, res) => {
+  //   if (err) return console.log(err);
+
+  //   console.log(res.ops);
+  // });
+
+  // db.collection('users').findOne({ _id: ObjectID('5cb192e4d0df3ddaf80a9a42') }, (err, doc) => {
+  //   if (err) return console.log(err);
+
+  //   console.log(doc);
+  // });
+
+  // db.collection('users').find({age: 27}).toArray((err, docs) => {
+  //   if (err) return console.log(err);
+
+  //   console.log(docs);
+  // });
+
+  // db.collection('users').find({age: 27}).count((err, num) => {
+  //   if (err) return console.log(err);
+
+  //   console.log(num);
+  // });
+
+  // db.collection('tasks').findOne({ _id: new ObjectID('5cb18c8ffd8092a4e536ef5d') }, (err, doc) => {
+  //   if (err) return console.log(err);
+
+  //   console.log(doc);
+  // });
+
+  // db.collection('tasks').find( {completed: true} ).toArray((err, docs) => {
+  //   if (err) console.log(err);
+
+  //   console.log(docs);
+  // });
+
+  // db.collection('users')
+  //   .updateOne(
+  //     { _id: new ObjectID('5cb192e4d0df3ddaf80a9a42') },
+  //     {
+  //       $set: {
+  //         name: 'Rocky Balboa'
+  //       },
+  //       $inc: {
+  //         age: 10
+  //       }
+  //     }
+  //   )
+  //   .then(result => console.log(result))
+  //   .catch(error => console.log(error));
+
+  // db.collection('tasks').updateMany(
+  //   {
+  //     completed: false,
+  //   },
+  //   {
+  //     $set: {
+  //       completed: true
+  //     }
+  //   }
+  // )
+  // .then(res => console.log(res))
+  // .catch(err => console.log(err));
+
+  // db.collection('users').deleteMany({
+  //   age: {
+  //     $gt: 30,
+  //   }
+  // })
+  // .then(res => console.log(res.deletedCount))
+  // .catch(err => console.log(err));
+
+  db.collection('tasks')
+    .deleteOne({ description: 'eat breakfast' })
+    .then(res => console.log(res.result))
+    .catch(err => console.log(err));
+});
